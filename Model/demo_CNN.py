@@ -1,31 +1,16 @@
-#relu
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from sklearn.base import BaseEstimator
-from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
 from torchvision import datasets, transforms
 
+from CNN import CNN
 from Dataprocessor import DataProcessor
 from Evaluate import evaluate
-from MLP import MLP
 from Train import train
 from Visualize import visualize
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-"""label_map = {
-    0: "T-shirt/top",
-    1: "Trouser",
-    2: "Pullover",
-    3: "Dress",
-    4: "Coat",
-    5: "Sandal",
-    6: "Shirt",
-    7: "Sneaker",
-    8: "Bag",
-    9: "Ankle boot"
-}"""
 
 
 def mnist_loader():
@@ -48,12 +33,12 @@ test_loader = processor.create_dataloader(test_dataset, shuffle=False)
 
 
 
-model = MLP(input_size=784, hidden_layers=[256, ], output_size=10,  dropout=0.0).to(device)
+model = CNN(num_classes=10).to(device)
 
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
-for epoch in range(1, 31):
+for epoch in range(1, 11):
     train_loss, train_acc = train(model, train_loader, criterion, optimizer, device)
     test_loss, test_acc = evaluate(model, test_loader, criterion, device)
     print(f"Epoch {epoch}: Train Loss = {train_loss:.4f}, Train Acc = {train_acc * 100:.2f} | Test Loss = {test_loss:.4f}, Test Acc = {test_acc * 100:.2f}")
