@@ -140,10 +140,10 @@ test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
 
 train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
-model = VGG16(num_classes=10).to(device)
+model = VGG11(num_classes=10).to(device)
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=0.001)
-for epoch in range(10):
+optimizer = optim.Adam(model.parameters(), lr=0.0001)
+for epoch in range(1,21):
     train_loss, train_acc = train(model, train_loader, criterion, optimizer, device)
     test_loss, test_acc = evaluate(model, test_loader, criterion, device)
     print(f"Epoch {epoch+1}/{10}, Train Loss: {train_loss:.4f}, Train Acc: {train_acc:.4f}, Test Loss: {test_loss:.4f}, Test Acc: {test_acc:.4f}")
