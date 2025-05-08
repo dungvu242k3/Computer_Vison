@@ -135,8 +135,6 @@ train_transform = transforms.Compose([
 train_dataset = torchvision.datasets.MNIST(root='./data', train=True, download=True, transform=train_transform)
 test_dataset = torchvision.datasets.MNIST(root='./data', train=False, download=True, transform=train_transform)
 
-train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
-test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
 
 train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
